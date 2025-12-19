@@ -1,16 +1,24 @@
-AFRAME.registerComponent('world-place', {
+
+import {responsiveImmersiveComponent} from './components/responsive-immersive.js'
+import {
+  portalCameraComponent, tapToPlacePortalComponent,
+  promptFlowComponent, spinComponent,
+} from './components/portal-components.js'
+
+AFRAME.registerComponent('portal-camera', portalCameraComponent)
+AFRAME.registerComponent('spin', spinComponent)
+
+AFRAME.registerComponent('prompt-flow', promptFlowComponent)
+AFRAME.registerComponent('tap-to-place-portal', tapToPlacePortalComponent)
+
+AFRAME.registerComponent('responsive-immersive', responsiveImmersiveComponent)
+
+AFRAME.registerComponent('auto-play-video', {
+  schema: {
+    video: {type: 'string'},
+  },
   init() {
-    const reticle = document.getElementById('reticle')
-    const box = document.getElementById('box')
-
-    this.el.sceneEl.addEventListener('click', () => {
-      if (!reticle.object3D.visible) return
-
-      box.object3D.position.copy(reticle.object3D.position)
-      box.object3D.quaternion.copy(reticle.object3D.quaternion)
-      box.setAttribute('visible', true)
-    })
-  }
+    const v = document.querySelector(this.data.video)
+    v.play()
+  },
 })
-
-document.querySelector('a-scene').setAttribute('world-place', '')
