@@ -1,11 +1,11 @@
 {
-  "name": "talk-to-thala",
+  "name": "starter-template",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "db.js",
   "scripts": {
    "dev": "run-p watch ourwebpack",
     "ourwebpack": "webpack --watch --mode=development",
-    "watch": "nodemon server"
+    "watch": "nodemon db"
   },
   "keywords": [],
   "author": "",

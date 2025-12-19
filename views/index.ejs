@@ -1,1 +1,129 @@
-<p>Hello world</p>
+<html>
+    <head>
+        <!-- Copyright (c) 2023 8th Wall, Inc. -->
+<!-- head.html is optional; elements will be added to your html head before app.js is loaded. -->
+
+<!-- Use "8thwall:" meta tags to hook into 8th Wall's build process and developer tools. -->
+<meta name="8thwall:renderer" content="aframe:1.2.0">
+<meta name="8thwall:package" content="@8thwall.xrextras">
+<meta name="8thwall:package" content="@8thwall.landing-page">
+
+<!-- Other external scripts and meta tags can also be added. -->
+<script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+
+<!-- 8th Wall chromakey shader (AFTER A-Frame) -->
+<script src="https://cdn.8thwall.com/web/aframe/aframe-chromakey-material-1.1.1.min.js"></script>
+
+<!-- A-Frame extras -->
+<script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.0.0/dist/aframe-extras.min.js"></script>
+
+    <!-- <script src="https://cdn.8thwall.com/web/xrextras/xrextras.js"></script> -->
+
+
+<script async src="https://apps.8thwall.com/xrweb?appKey=ym1JxzIYnxbmxwN90RLaimxesODoLzjyOYL4s1TUlm5I2NXNN6vn2wLeMBK15Wssxz0IVv"></script>
+<script crossorigin="anonymous"
+    src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<style>body { 
+  font-family: 'Contrail One', monospace;
+  background: black;
+}
+
+.absolute-fill {
+  z-index: 10;
+  position:absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  pointer-events: none;
+}
+
+#recenterButton {
+  position: absolute;
+  z-index: 5;
+  left: 2vh;
+  bottom: 2vh;
+  max-width: 50px;
+  pointer-events: auto;
+}
+
+#promptText {
+  font-size: 8vw;
+  text-align: center;
+
+  color: white;
+  text-shadow: 2px 2px 8px purple;
+  
+  position: absolute;
+  width: 100%;
+  bottom: 12vh;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+/* ANIMATIONS */
+
+.fly-in {animation: fly-in 1.5s ease-out both;}
+@keyframes fly-in {
+  0%   {transform: translate(-100%, 0%);  opacity: 0;}
+  70%  {opacity: 1;}
+  100%  {transform: translate(-50%, 0%); opacity: 1;}
+}
+
+.fly-out {animation: fly-out 1.5s ease-out both;}
+@keyframes fly-out {
+  0%  {transform: translate(-50%, 0%); opacity: 1;}
+  70%  {opacity: 0;}
+  100%   {transform: translate(0%, 0%); opacity: 0;}
+}
+
+.pulse-once { animation: pulse-once 0.2s cubic-bezier(0.785, 0.135, 0.150, 0.860) both; }
+@keyframes pulse-once {
+  0% {transform: scale(1);}
+  50% {transform: scale(0.8);}
+  100% {transform: scale(1);}
+}
+</style>
+<script type="module" src="/assets/app.js">
+</script>
+    </head>
+    <body>
+        <div id="overlay" style="display: none" class="absolute-fill">
+  <img id="recenterButton" src="./assets/textures/recenter.png"> 
+  <span id="promptText"></span>
+</div>
+
+ <a-scene
+    xrweb="allowedDevices: any"
+    xrextras-loading
+    xrextras-runtime-error
+    renderer="colorManagement: true">
+
+    <!-- Camera -->
+    <a-camera position="0 1.6 0"></a-camera>
+
+    <!-- Tap placement reticle -->
+    <a-entity
+      id="reticle"
+      xrextras-hittest
+      visible="false"
+      geometry="primitive: ring; radiusInner: 0.1; radiusOuter: 0.12"
+      material="color: white">
+    </a-entity>
+
+    <!-- Object to place -->
+    <a-box
+      id="box"
+      visible="false"
+      depth="0.3"
+      height="0.3"
+      width="0.3"
+      color="red">
+    </a-box>
+
+  </a-scene>
+
+    </body>
+</html>
