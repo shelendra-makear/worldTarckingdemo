@@ -2,6 +2,7 @@
   "name": "starter-template",
   "version": "1.0.0",
   "main": "db.js",
+
   "scripts": {
    "dev": "run-p watch ourwebpack",
     "ourwebpack": "webpack --watch --mode=development",

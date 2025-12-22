@@ -9,7 +9,7 @@ const portalCameraComponent = {
     this.contents = document.getElementById('portal-contents')
     this.walls = document.getElementById('hider-walls')
     this.portalWall = document.getElementById('portal-wall')
-    this.portalVideo = document.getElementById('portalVideo')
+    // this.portalVideo = document.getElementById('portalVideo')
     this.isInPortalSpace = false
     this.wasOutside = true
   },
@@ -25,7 +25,7 @@ const portalCameraComponent = {
     this.contents.object3D.visible = this.isInPortalSpace || isOutside
     this.walls.object3D.visible = !this.isInPortalSpace && isOutside
     this.portalWall.object3D.visible = this.isInPortalSpace && !isOutside
-    this.portalVideo.object3D.visible = isOutside
+    // this.portalVideo.object3D.visible = isOutside
     this.wasOutside = isOutside
   },
 }
@@ -44,7 +44,7 @@ const tapToPlacePortalComponent = {
 
     const portalHiderRing = this.el.sceneEl.querySelector('#portalHiderRing')
     const portalRim = this.el.sceneEl.querySelector('#portalRim')
-    const portalVideo = this.el.sceneEl.querySelector('#portalVideo')
+    // const portalVideo = this.el.sceneEl.querySelector('#portalVideo')
     const portalShadow = this.el.sceneEl.querySelector('#portalShadow')
 
     const handleClickEvent = (e) => {
@@ -65,7 +65,7 @@ const tapToPlacePortalComponent = {
         property: 'radius-inner',
         dur: 1500,
         from: '0.001',
-        to: '3.5',
+        to: '3.6',
         easing: 'easeOutElastic',
       })
 
@@ -73,17 +73,17 @@ const tapToPlacePortalComponent = {
         property: 'scale',
         dur: 1500,
         from: '0.001 0.001 0.001',
-        to: '4.3 4.3 4.3',
+        to: '1.7 1.7 1.7',
         easing: 'easeOutElastic',
       })
 
-      portalVideo.setAttribute('animation__3', {
-        property: 'scale',
-        dur: 1500,
-        from: '0.001 0.001 0.001',
-        to: '7 7 1',
-        easing: 'easeOutElastic',
-      })
+      // portalVideo.setAttribute('animation__3', {
+      //   property: 'scale',
+      //   dur: 1500,
+      //   from: '0.001 0.001 0.001',
+      //   to: '7 7 1',
+      //   easing: 'easeOutElastic',
+      // })
 
       portalShadow.setAttribute('animation__4', {
         property: 'scale',
@@ -92,6 +92,7 @@ const tapToPlacePortalComponent = {
         to: '15.5 2 11',
         easing: 'easeOutElastic',
       })
+
       sceneEl.removeEventListener('click', firstPlaceEvent)
       recenterBtn.addEventListener('click', handleClickEvent, true)
     }
@@ -104,7 +105,7 @@ const promptFlowComponent = {
   init() {
     this.prompt = document.getElementById('promptText')
     this.overlay = document.getElementById('overlay')
-
+    this.portalRim = document.getElementById('portalRim')
     this.el.sceneEl.addEventListener('realityready', () => {
       this.overlay.style.display = 'block'
       this.prompt.innerHTML = 'Tap to Place<br>Moon Portal'
@@ -114,6 +115,13 @@ const promptFlowComponent = {
     this.el.addEventListener('dismissPrompt', () => {
       this.prompt.classList.remove('fly-in')
       this.prompt.classList.add('fly-out')
+      setTimeout(() => {
+        this.portalRim.setAttribute('animation-mixer', {
+          clip: '*',
+          loop: 'once',
+          clampWhenFinished: true,
+        })
+      }, 2000)
     })
   },
 }
